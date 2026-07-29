@@ -1,8 +1,8 @@
 /* Harbour Invoice — Service Worker
-   构建版本 55b3b8e2edee（内容哈希；应用一变，缓存自动失效）
+   构建版本 554e9166eb26（内容哈希；应用一变，缓存自动失效）
    策略：页面导航 → 网络优先、失败回落缓存；静态资源 → 缓存优先
 */
-const CACHE = 'harbour-invoice-55b3b8e2edee';
+const CACHE = 'harbour-invoice-554e9166eb26';
 const SHELL = ['./', './index.html', './manifest.json',
                './apple-touch-icon.png', './icon-192.png', './icon-512.png', './icon-512-maskable.png'];
 
