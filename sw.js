@@ -1,8 +1,8 @@
 /* Harbour Invoice — Service Worker
-   构建版本 554e9166eb26（内容哈希；应用一变，缓存自动失效）
+   构建版本 a218260ffd7d（内容哈希；应用一变，缓存自动失效）
    策略：页面导航 → 网络优先、失败回落缓存；静态资源 → 缓存优先
 */
-const CACHE = 'harbour-invoice-554e9166eb26';
+const CACHE = 'harbour-invoice-a218260ffd7d';
 const SHELL = ['./', './index.html', './manifest.json',
                './apple-touch-icon.png', './icon-192.png', './icon-512.png', './icon-512-maskable.png'];
 
@@ -20,7 +20,9 @@ self.addEventListener('fetch', e => {
   const req = e.request;
   if (req.method !== 'GET' || new URL(req.url).origin !== location.origin) return;
   if (req.mode === 'navigate') {
-    e.respondWith(fetch(req).then(res => {
+    // cache:'no-store' —— 绕开浏览器 HTTP 缓存。GitHub Pages 会给 HTML 加
+    // max-age=600 且无法覆盖，不绕开就会拿到旧页面。
+    e.respondWith(fetch(req.url, {cache: 'no-store'}).then(res => {
       const copy = res.clone();
       caches.open(CACHE).then(c => c.put('./index.html', copy));
       return res;
